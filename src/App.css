@@ -1,38 +1,63 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title{
+  font-weight: bold;
+  font-size: calc(19px + 1vw);
+  margin: 30px 0 0 20px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.mainComponent{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  
+
 }
 
-.App-link {
-  color: #61dafb;
+.carddiv{
+  /* border: 2px solid black; */
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 40px 10px 10px 10px;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.inputfield,.editStudent,.editteacher{
+  margin: 20px 0 0 0;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: calc(300px + 30vw);
+
 }
+
+.studentProfile,.teacherProfile{
+  /* border: 1px solid rgb(144, 143, 143); */
+  margin-top: calc(30px + 5vw);
+  padding: calc(10px + 1vw);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgb(194, 192, 192);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: calc(300px + 20vw);
+  cursor:context-menu;
+
+}
+
+.studentProfile>div,.teacherProfile>div{
+  font-weight: bold;
+  font-size: calc(25px + 1vw);
+}
+
+.studentProfile>p,.teacherProfile>p{
+  font-weight: 400;
+  font-size: calc(20px + 1vw);
+}
+
