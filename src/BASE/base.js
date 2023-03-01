@@ -15,7 +15,7 @@ const Base = ({title,children}) => {
 
 
             <AppBar position='static'>
-                <Toolbar variant='dense'>
+                <Toolbar className='header' variant='dense'>
 
 
 
