@@ -6,6 +6,7 @@ import Base from "../BASE/base";
 
 
 export const StudentProfile = ({studentsData}) => {
+    
 const {id} = useParams();
 const student = studentsData[id]
 // this is only for reading purpose

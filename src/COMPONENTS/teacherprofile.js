@@ -8,6 +8,8 @@ import Base from "../BASE/base";
 export const TeacherProfile = ({teachersData}) => {
 const {id} = useParams();
 const teacher = teachersData[id]
+console.log(teachersData)
+
 // this is only for reading purpose
 // const teacher = teachersData.filter((stud)=>stud.id == id)
 const history = useHistory()

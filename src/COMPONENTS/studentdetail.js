@@ -8,7 +8,7 @@ import Base from "../BASE/base";
 export const StudentsDetails = ({studentsData,setStudentsData}) => {
 
     const history = useHistory();
-
+    
 
     const deleteStudentsData = async(studId)=>{
         try {
@@ -21,12 +21,12 @@ export const StudentsDetails = ({studentsData,setStudentsData}) => {
             console.log(data)
             const selectstudent = studentsData.filter((stud)=>stud.id !== studId);
           setStudentsData(selectstudent);
-  
+          
           } catch (error) {
               console.log("Error Occured",error)
           }
     }
-
+   
     
 
     return(

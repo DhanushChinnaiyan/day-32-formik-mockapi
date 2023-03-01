@@ -1,42 +1,46 @@
 
 import { Button, TextField } from "@mui/material";
+import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Base from "../BASE/base";
+import { studentvalidation } from "./addstudent";
 
 
 export const EditStudents = ({studentsData,setStudentsData}) => {
   const history = useHistory();
   const {id} = useParams();
   const student = studentsData[id];
-  const [name,setName] = useState("");
-  const [batch,setBatch] = useState("");
-  const [gender,setGender] = useState("");
-  const [experience,setExperience] = useState("");
   const [idx,setIdx] = useState("")
 
   useEffect(()=>{
     setIdx(student.id)
-    setName(student.name);
-    setBatch(student.batch);
-    setGender(student.gender);
-    setExperience(student.experience)
-  },[student.id,student.name,student.batch,student.gender,student.experience])
+  },[student.id])
 
-const updateStudent = async() => {
+  const {values,handleChange,handleSubmit,handleBlur,errors,touched} = useFormik({
+          
+
+    initialValues : {
+        name:student.name,
+        batch:student.batch,
+        gender:student.gender,
+        experience:student.experience
+    },
+
+    validationSchema : studentvalidation ,
+    onSubmit : (editedstudent)=>{
+      updateStudent(editedstudent)
+    }
+})
+
+const updateStudent = async(editedstudent) => {
 
    try {
             
-     const updatedObj = {
-      name,
-      batch,
-      gender,
-      experience
-     }
 
      const response = await fetch (`https://63fde41c19f41bb9f6562d7f.mockapi.io/student/${idx}`,{
        method : "PUT",
-       body : JSON.stringify(updatedObj),
+       body : JSON.stringify(editedstudent),
        headers : {
         "Content-Type":"application/json"
        }
@@ -47,13 +51,8 @@ const updateStudent = async() => {
      if(data){
 
       const editedData = studentsData.findIndex((stud) => stud.id === idx);
-      studentsData[editedData] = updatedObj;
+      studentsData[editedData] = editedstudent;
       setStudentsData([...studentsData])
-      setName("")
-      setBatch("")
-      setGender("")
-      setExperience("")
-
       history.push("/students-list")
 
      }
@@ -73,42 +72,59 @@ const updateStudent = async() => {
         <Base
         title="Edit Your Profie"
         >
-         <div className="editStudent">
+         <form onSubmit={handleSubmit} className="editStudent">
            
 
-            <TextField
-            fullWidth label="Enter Name"
-            onChange={(event)=>setName(event.target.value)}
-            value={name}
-            />
+         <TextField 
+           fullWidth label="Enter Name"
+           onChange={handleChange}
+           onBlur={handleBlur}
+           value={values.name}
+           name="name"
+           id="fullWidth"
+           />
 
-            <TextField
-            fullWidth label="Enter Batch"
-            onChange={(event)=>setBatch(event.target.value)}
-            value={batch}
-            />
+          {touched.name && errors.name ? <p style={{color:"red"}}> {errors.name} </p> : ""} 
+          <TextField 
+           fullWidth label="Enter Batch"
+           onChange={handleChange}
+           onBlur={handleBlur}
+           value={values.batch}
+           name="batch"
+           id="fullWidth"
+           />
+            {touched.batch && errors.batch ? <p style={{color:"red"}}> {errors.batch} </p> : ""}
+           <TextField 
+           fullWidth label="Enter Gender"
+           onChange={handleChange}
+           onBlur={handleBlur}
+           value={values.gender}
+           name="gender"
+           id="fullWidth"
+           />
+            {touched.gender && errors.gender ? <p style={{color:"red"}}> {errors.gender} </p> : ""}
+           <TextField 
+           fullWidth label="Enter experience"
+           onChange={handleChange}
+           onBlur={handleBlur}
+           value={values.experience}
+           name="experience"
+           id="fullWidth"
+           />
+        {touched.experience && errors.experience ? <p style={{color:"red"}}> {errors.experience} </p> : ""}
+           <Button
+           className='addbtn'
+           color='secondary'
+           variant="contained"
+           type='submit'
+           >
 
-            <TextField
-            fullWidth label="Enter Gender"
-            onChange={(event)=>setGender(event.target.value)}
-            value={gender}
-            />
+            Update Student
+           </Button>
 
-            <TextField
-            fullWidth label="Enter Experience"
-            onChange={(event)=>setExperience(event.target.value)}
-            value={experience}
-            />
 
-            <Button 
-              color="secondary"
-              variant="contained"
-              onClick={updateStudent}
-            
-            >
-                Update Data
-            </Button>
-         </div>
+
+         </form>
         </Base>
     )
 }

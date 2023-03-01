@@ -19,6 +19,7 @@ function App() {
   const[studentsData,setStudentsData]=useState([])
  
   useEffect(()=>{
+    
        const getStudent = async() => {
         try {
           const response =await fetch ("https://63fde41c19f41bb9f6562d7f.mockapi.io/student" , {
@@ -27,7 +28,7 @@ function App() {
           const data =await response.json();
           
           setStudentsData(data)
-          
+         
         } catch (error) {
           console.log("Error Occure" , error)
         }
@@ -49,6 +50,7 @@ function App() {
        getStudent(); 
        getTeacher();
   },[])
+  
   
 
   return (
